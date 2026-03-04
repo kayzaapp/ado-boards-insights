@@ -1,16 +1,27 @@
-{\n  "$schema": "http://json.schemastore.org/vss-extension",
-  "id": "your.extension.id",
-  "name": "Your Extension Name",
-  "publisher": "Your Publisher Name",
-  "version": "1.0.0",
-  "description": "A description of your extension.",
-  "contributes": {\n    "commands": [{\n      "id": "your.command.id",
-      "description": "A description of the command."
-    }]\n  },\n  "files": [{\n      "path": "path/to/your/file",
-      "content": "Your content here."
-    }],\n  "icons": {\n    "default": "images/icon.png"
-  },\n  "media": [{\n    "path": "images/media.png",
-    "type": "image/png"
-  }],\n  "licenseTerms": "Your license terms here.\n  ",\n  "targets": [{\n    "id": "Microsoft.VisualStudio.Services",
-    "version": "1.0.0"
-  }]\n}
+{
+  "manifestVersion": 1,
+  "id": "ado-boards-insights",
+  "name": "ADO Boards Insights",
+  "publisher": "NelsonLamprecht",
+  "version": "0.1.0",
+  "description": "Sums Story Points for the selected sprint and shows the total in the board header.",
+  "targets": ["Microsoft.VisualStudio.Services"],
+  "categories": ["Azure Boards"],
+  "contributions": [
+    {
+      "id": "boards-storypoints-content",
+      "type": "ms.vss-web.hub-content",
+      "description": "Shows story points total for the sprint",
+      "targets": ["ms.vss-work-web.board-hub"],
+      "properties": {
+        "name": "Boards Story Points",
+        "uri": "content.html"
+      }
+    }
+  ],
+  "files": [
+    { "path": "content.html" },
+    { "path": "dist/content.js" },
+    { "path": "README.md" }
+  ]
+}
