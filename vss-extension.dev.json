@@ -1,5 +1,6 @@
 {
-  "id": "ado-boards-insights-dev",
-  "name": "ADO Boards Insights (Dev)",
+  "id": "azure-devops-boards-insights-dev",
+  "name": "Azure DevOps Boards Insights (Dev)",
+  "version": "0.2.0",
   "public": false
 }
