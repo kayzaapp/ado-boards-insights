@@ -1,6 +1,7 @@
 name: Build VSIX
 
 on:
+  pull_request:
   workflow_dispatch:
     inputs:
       release_tag:
@@ -12,11 +13,6 @@ on:
         required: true
         default: false
         type: boolean
-  push:
-    branches:
-      - main
-    tags:
-      - 'v*'
 
 permissions:
   contents: read
@@ -36,7 +32,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Package extension (.vsix)
+      - name: Package dev extension (.vsix)
+        if: github.event_name == 'pull_request'
+        run: npm run package:dev
+
+      - name: Package prod extension (.vsix)
+        if: github.event_name == 'workflow_dispatch' && inputs.publish_release && inputs.release_tag != ''
         run: npm run package
 
       - name: Upload VSIX artifact
@@ -46,7 +47,7 @@ jobs:
           path: '*.vsix'
 
   publish-release:
-    if: startsWith(github.ref, 'refs/tags/') || (github.event_name == 'workflow_dispatch' && inputs.publish_release && inputs.release_tag != '')
+    if: github.event_name == 'workflow_dispatch' && inputs.publish_release && inputs.release_tag != ''
     needs: build-and-package
     runs-on: ubuntu-latest
     permissions:
@@ -59,10 +60,9 @@ jobs:
           path: dist-artifacts
 
       - name: Validate release tag input
-        if: github.event_name == 'workflow_dispatch'
         run: |
           if [[ -z "${{ inputs.release_tag }}" ]]; then
-            echo "release_tag is required when manually running this workflow."
+            echo "release_tag is required when publishing a release."
             exit 1
           fi
 
@@ -76,5 +76,5 @@ jobs:
         with:
           files: 'dist-artifacts/*.vsix'
           generate_release_notes: true
-          tag_name: ${{ github.event_name == 'workflow_dispatch' && inputs.release_tag || github.ref_name }}
+          tag_name: ${{ inputs.release_tag }}
           target_commitish: ${{ github.sha }}
