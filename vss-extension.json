@@ -23,6 +23,8 @@
   "files": [
     { "path": "content.html" },
     { "path": "dist/content.js" },
+    { "path": "dist/content.js.map" },
+    { "path": "src/styles.css" },
     { "path": "README.md" }
   ]
 }
