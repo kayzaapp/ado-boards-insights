@@ -1,6 +1,6 @@
 {
   "name": "ado-boards-insights",
-  "version": "1.0.0",
+  "version": "0.2.0",
   "scripts": {
     "build": "webpack",
     "package": "npm run build && tfx extension create --manifest-globs vss-extension.json"
@@ -17,6 +17,7 @@
     "webpack-cli": "^4.0.0"
   },
   "dependencies": {
+    "azure-devops-extension-api": "^4.270.0",
     "azure-devops-extension-sdk": "^4.2.0"
   }
 }
