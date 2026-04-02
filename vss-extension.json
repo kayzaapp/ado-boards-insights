@@ -20,7 +20,9 @@
       "type": "ms.vss-web.hub",
       "description": "Shows story points total for visible backlog items",
       "targets": [
-        "ms.vss-work-web.requirement-backlog-toolpane"
+        "ms.vss-work-web.requirement-backlog-toolpane",
+        "ms.vss-work-web.portfolio-backlog-toolpane",
+        "ms.vss-work-web.iteration-backlog-toolpane"
       ],
       "properties": {
         "name": "Story Points",
@@ -31,6 +33,9 @@
         "uri": "content.html"
       }
     }
+  ],
+  "scopes": [
+    "vso.work"
   ],
   "files": [
     {
